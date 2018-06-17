@@ -11,7 +11,8 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var previewView: UIView!
+
+    @IBOutlet weak var imagePicked: UIImageView!
     
    
     override func viewDidLoad() {
@@ -37,7 +38,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
+    @IBAction func openPhotoLibrary(_ sender: UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary;
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+//    optional func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        imagePicked.image = image
+        dismiss(animated:true, completion: nil)
+    }
     
+    @IBAction func saveButt(sender: AnyObject) {
+        var imageData = UIImageJPEGRepresentation(imagePicked.image!, 0.6)
+        var compressedJPGImage = UIImage(data: imageData!)
+        UIImageWriteToSavedPhotosAlbum(compressedJPGImage!, nil, nil, nil)
+        
+        let alert = UIAlertView(title: "Wow",
+                                message: "Your image has been saved to Photo Library!",
+                                delegate: nil,
+                                cancelButtonTitle: "Ok")
+        alert.show()
+    }
+    
+
     
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
