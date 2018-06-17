@@ -5,7 +5,11 @@
 //  Created by Student on 6/16/18.
 //  Copyright © 2018 Student. All rights reserved.
 //
-
+/*
+ Tested and works
+ copied from https://turbofuture.com/cell-phones/Access-Photo-Camera-and-Library-in-Swift
+ Thanks for this easy and wonderful tutorial, Dimitri
+*/
 import UIKit
 
 
